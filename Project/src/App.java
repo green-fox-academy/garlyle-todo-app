@@ -4,6 +4,12 @@ public class App {
   public static void main(String[] args) {
     if (args.length == 0) {
       printUsage();
+    } else {
+      ToDoList todoList = new ToDoList();
+      if (args[0].equals("-l"))
+      {
+        todoList.printTasks();
+      }
     }
   }
 

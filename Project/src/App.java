@@ -1,4 +1,6 @@
 public class App {
+  ToDoList todoList;
+
   public static void main(String[] args) {
     if (args.length == 0) {
       printUsage();
@@ -12,11 +14,14 @@ public class App {
         if (args.length < 2) {
           System.out.println("Unable to add: no task provided");
         } else {
-          todoList.addTask(args[1]);
+          todoList.addTask(ToDo.UNDONE + args[1]);
           todoList.saveTasks();
         }
       } else if (args[0].equals("-r")) {
         todoList.removeTask(Integer.parseInt(args[1]) - 1);
+        todoList.saveTasks();
+      } else if (args[0].equals("-c")) {
+        todoList.checkTask(Integer.parseInt(args[1]) - 1);
         todoList.saveTasks();
       }
     }

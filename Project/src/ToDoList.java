@@ -27,7 +27,11 @@ public class ToDoList {
 
     try {
       for (String line : Files.readAllLines(filePath)) {
-        addTask(line);
+        if (!line.startsWith(ToDo.UNDONE) && !line.startsWith(ToDo.DONE)) {
+          addTask(ToDo.UNDONE + line);
+        } else {
+          addTask(line);
+        }
       }
     } catch (Exception ex) {
     }
@@ -54,5 +58,9 @@ public class ToDoList {
 
   public void removeTask(int index) {
     listOfTasks.remove(index);
+  }
+
+  public void checkTask(int i) {
+    listOfTasks.get(i).check();
   }
 }

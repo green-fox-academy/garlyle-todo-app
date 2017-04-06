@@ -40,7 +40,7 @@ public class App {
   private static boolean checkForNumericArguments(String[] args, ToDoList list, String err) {
     if (args.length < 2) {
       System.out.println(err + "no index provided");
-    } else if (!args[1].matches(".*\\d+.*" )){
+    } else if (!args[1].matches("\\d+" )){
       System.out.println(err + "index is not a number");
     } else if (!list.isIndexValid(Integer.parseInt(args[1]))) {
       System.out.println(err + "index is out of bound");

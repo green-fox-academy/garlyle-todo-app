@@ -33,6 +33,21 @@ public class ToDoList {
     }
   }
 
+  public void saveTasks() {
+    Path filePath = Paths.get("tasks");
+    try {
+      if (!Files.exists(filePath)) {
+        Files.createFile(filePath);
+      }
+      ArrayList<String> out = new ArrayList<>();
+      for (ToDo task : listOfTasks) {
+        out.add(task.getTask());
+      }
+      Files.write(filePath, out);
+    } catch (Exception ex) {
+    }
+  }
+
   public void addTask(String task) {
     listOfTasks.add(new ToDo(task));
   }

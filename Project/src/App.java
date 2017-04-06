@@ -13,6 +13,7 @@ public class App {
           System.out.println("Unable to add: no task provided");
         } else {
           todoList.addTask(args[1]);
+          todoList.saveTasks();
         }
       }
     }

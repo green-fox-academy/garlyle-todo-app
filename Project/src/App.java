@@ -3,6 +3,9 @@ public class App {
 
   public static void main(String[] args) {
     if (args.length == 0) {
+      System.out.println("Java Todo application");
+      System.out.println("=====================");
+      System.out.println();
       printUsage();
     } else {
       ToDoList todoList = new ToDoList();
@@ -23,14 +26,14 @@ public class App {
       } else if (args[0].equals("-c")) {
         todoList.checkTask(Integer.parseInt(args[1]) - 1);
         todoList.saveTasks();
+      } else {
+        System.out.println("Error: Unsupported argument");
+        printUsage();
       }
     }
   }
 
   private static void printUsage() {
-    System.out.println("Java Todo application");
-    System.out.println("=====================");
-    System.out.println();
     System.out.println("Command line arguments:");
     System.out.println(" -l   Lists all the tasks");
     System.out.println(" -a   Adds a new task");

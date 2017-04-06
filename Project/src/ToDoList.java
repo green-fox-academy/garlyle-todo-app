@@ -63,4 +63,8 @@ public class ToDoList {
   public void checkTask(int i) {
     listOfTasks.get(i).check();
   }
+
+  public boolean isIndexValid(int index) {
+    return index <= listOfTasks.size() && index > 0;
+  }
 }

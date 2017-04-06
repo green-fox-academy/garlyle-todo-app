@@ -1,5 +1,5 @@
 public class App {
-  ToDoList todoList;
+  static ToDoList todoList;
 
   public static void main(String[] args) {
     if (args.length == 0) {
@@ -8,7 +8,7 @@ public class App {
       System.out.println();
       printUsage();
     } else {
-      ToDoList todoList = new ToDoList();
+      todoList = new ToDoList();
       todoList.loadTasks();
       if (args[0].equals("-l"))
       {
@@ -21,16 +21,33 @@ public class App {
           todoList.saveTasks();
         }
       } else if (args[0].equals("-r")) {
-        todoList.removeTask(Integer.parseInt(args[1]) - 1);
-        todoList.saveTasks();
+        if (checkForNumericArguments(args, todoList, "Unable to remove: ")) {
+          todoList.removeTask(Integer.parseInt(args[1]) - 1);
+          todoList.saveTasks();
+        }
       } else if (args[0].equals("-c")) {
-        todoList.checkTask(Integer.parseInt(args[1]) - 1);
-        todoList.saveTasks();
+        if (checkForNumericArguments(args, todoList, "Unable to check: ")) {
+          todoList.checkTask(Integer.parseInt(args[1]) - 1);
+          todoList.saveTasks();
+        }
       } else {
         System.out.println("Error: Unsupported argument");
         printUsage();
       }
     }
+  }
+
+  private static boolean checkForNumericArguments(String[] args, ToDoList list, String err) {
+    if (args.length < 2) {
+      System.out.println(err + "no index provided");
+    } else if (!args[1].matches(".*\\d+.*" )){
+      System.out.println(err + "index is not a number");
+    } else if (!list.isIndexValid(Integer.parseInt(args[1]))) {
+      System.out.println(err + "index is out of bound");
+    } else {
+      return true;
+    }
+    return false;
   }
 
   private static void printUsage() {

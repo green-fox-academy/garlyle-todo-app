@@ -51,4 +51,8 @@ public class ToDoList {
   public void addTask(String task) {
     listOfTasks.add(new ToDo(task));
   }
+
+  public void removeTask(int index) {
+    listOfTasks.remove(index);
+  }
 }

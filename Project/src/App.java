@@ -15,6 +15,9 @@ public class App {
           todoList.addTask(args[1]);
           todoList.saveTasks();
         }
+      } else if (args[0].equals("-r")) {
+        todoList.removeTask(Integer.parseInt(args[1]) - 1);
+        todoList.saveTasks();
       }
     }
   }

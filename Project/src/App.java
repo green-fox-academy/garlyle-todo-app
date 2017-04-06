@@ -8,6 +8,12 @@ public class App {
       if (args[0].equals("-l"))
       {
         todoList.printTasks();
+      } else if (args[0].equals("-a")) {
+        if (args.length < 2) {
+          System.out.println("Unable to add: no task provided");
+        } else {
+          todoList.addTask(args[1]);
+        }
       }
     }
   }

@@ -27,9 +27,13 @@ public class ToDoList {
 
     try {
       for (String line : Files.readAllLines(filePath)) {
-        listOfTasks.add(new ToDo(line));
+        addTask(line);
       }
     } catch (Exception ex) {
     }
+  }
+
+  public void addTask(String task) {
+    listOfTasks.add(new ToDo(task));
   }
 }

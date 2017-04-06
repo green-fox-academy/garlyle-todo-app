@@ -2,7 +2,7 @@ public class ToDo {
   private String taskDescription;
 
   public ToDo(String description) {
-    taskDescription = description;
+    setTask(description);
   }
 
   public String getTask() {
@@ -10,6 +10,6 @@ public class ToDo {
   }
 
   public void setTask(String description) {
-    this.taskDescription = taskDescription;
+    this.taskDescription = description;
   }
 }

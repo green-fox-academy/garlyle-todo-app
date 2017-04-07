@@ -3,51 +3,51 @@ public class App {
 
   public static void main(String[] args) {
     if (args.length == 0) {
-      System.out.println("Java Todo application");
-      System.out.println("=====================");
-      System.out.println();
-      printUsage();
+      printInformation();
     } else {
       todoList = new ToDoList();
-      todoList.loadTasks();
-      if (args[0].equals("-l"))
-      {
-        todoList.printTasks();
-      } else if (args[0].equals("-a")) {
-        if (args.length < 2) {
-          System.out.println("Unable to add: no task provided");
-        } else {
+      handleArguments(args);
+    }
+  }
+
+  private static void handleArguments(String[] args) {
+    if (args[0].equals("-l")) {
+      todoList.printTasks();
+    } else {
+      try {
+        if (args[0].equals("-a")) {
           todoList.addTask(ToDo.UNDONE + args[1]);
-          todoList.saveTasks();
+        } else if (args[0].equals("-r")) {
+            todoList.removeTask(Integer.parseInt(args[1]) - 1);
+        } else if (args[0].equals("-c")) {
+            todoList.checkTask(Integer.parseInt(args[1]) - 1);
+        } else {
+          System.out.println("Error: Unsupported argument");
+          printUsage();
+          return;
         }
-      } else if (args[0].equals("-r")) {
-        if (checkForNumericArguments(args, todoList, "Unable to remove: ")) {
-          todoList.removeTask(Integer.parseInt(args[1]) - 1);
-          todoList.saveTasks();
-        }
-      } else if (args[0].equals("-c")) {
-        if (checkForNumericArguments(args, todoList, "Unable to check: ")) {
-          todoList.checkTask(Integer.parseInt(args[1]) - 1);
-          todoList.saveTasks();
-        }
-      } else {
-        System.out.println("Error: Unsupported argument");
-        printUsage();
+        todoList.saveTasks();
+      } catch (Exception ex) {
+        String err = "Unable to ";
+        err += ((args[0].equals("-a"))? "add" :
+               (args[0].equals("-r"))? "remove" :
+               (args[0].equals("-c"))? "check" :
+               "") + ": ";
+        err += (ex instanceof ArrayIndexOutOfBoundsException)?
+                  ((args[0].equals("-a"))? "no task provided" : "no index provided") :
+               (ex instanceof IndexOutOfBoundsException)? "index is out of bound" :
+               (ex instanceof NumberFormatException)? "index is not a number" :
+               "";
+        System.out.println(err);
       }
     }
   }
 
-  private static boolean checkForNumericArguments(String[] args, ToDoList list, String err) {
-    if (args.length < 2) {
-      System.out.println(err + "no index provided");
-    } else if (!args[1].matches("\\d+" )){
-      System.out.println(err + "index is not a number");
-    } else if (!list.isIndexValid(Integer.parseInt(args[1]))) {
-      System.out.println(err + "index is out of bound");
-    } else {
-      return true;
-    }
-    return false;
+  private static void printInformation() {
+    System.out.println("Java Todo application");
+    System.out.println("=====================");
+    System.out.println();
+    printUsage();
   }
 
   private static void printUsage() {

@@ -9,6 +9,7 @@ public class ToDoList {
   public ToDoList()
   {
     listOfTasks = new ArrayList<>();
+    loadTasks();
   }
 
   public void printTasks() {
